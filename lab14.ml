@@ -17,6 +17,14 @@ In this lab, you will use an infinite data structure, the *stream*. *)
 
 open CS51Utils ;; (* for access to timing functions *)
 
+  (* Digression: We've just opened `CS51Utils` above, so we can make
+     use of its components (like `Absbook.call_reporting_time`) in
+     this file. But if you want to use it in the REPL, you'll need to
+     make it accessible there as well, e.g.,
+
+        # #require "CS51Utils" ;;
+        # open CS51Utils ;;                                         *)
+
 (*====================================================================
 Part 1: Programming with lazy streams
 
