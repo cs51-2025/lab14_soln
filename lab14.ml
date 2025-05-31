@@ -80,7 +80,10 @@ module LazyStream =
       
     (* smap2 fn strm1 strm2 -- Returns a stream that applies the `fn`
        to corresponding elements of `strm1` and `strm2`. *)
-    let rec smap2 f s1 s2 = 
+    let rec smap2 (f : 'a1 -> 'a2 -> 'b)
+                  (s1 : 'a1 stream)
+                  (s2 : 'a2 stream)
+                : 'c stream = 
       fun () -> Cons (f (head s1) (head s2),
                       smap2 f (tail s1) (tail s2)) ;;
   end ;;
@@ -106,7 +109,7 @@ definition is introduced in the skeleton code below. (We'll stop
 mentioning this now, and forevermore.)
 ....................................................................*)
 
-let rec twos =
+let rec twos : int stream =
   fun () -> Cons (2, twos) ;;
 
 (*....................................................................
@@ -114,7 +117,7 @@ Exercise 2: An infinite stream of threes, built by summing the ones
 and twos.
 ....................................................................*)
 
-let threes =
+let threes : int stream =
   smap2 (+) ones twos ;;
   
 (*....................................................................
@@ -126,7 +129,7 @@ the textbook.
 (* Here is the implementation from the textbook, which makes `nats`
    directly as a recursive *value*. *)
   
-let rec nats =
+let rec nats : int stream =
   fun () -> Cons (0, smap succ nats) ;;
 
 (* An alternative implementation defines a recursive *function*
